@@ -14,7 +14,8 @@
 		<form-login login-page='/login' default-target-url='/home'
             always-use-default-target='true' />
 		<http-basic />
-		<logout />
+		<logout logout-url="/logout" logout-success-url="/login"/>
+		
 	</http>
 	<authentication-manager>
 		<authentication-provider>
