@@ -7,8 +7,9 @@
 			</Pattern>
 		</layout>
 	</appender>
-
+<!-- 
 	<logger name="org.springframework" level="error" />
+	 -->
 	<logger name="org.apache" level="error" />
 
 

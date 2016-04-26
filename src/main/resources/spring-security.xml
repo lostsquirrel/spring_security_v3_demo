@@ -6,10 +6,13 @@
            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<http>
+		<intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<!-- <intercept-url pattern="/login.jsp*" filters="none"/> -->
 		<intercept-url pattern="/manager/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/**" access="ROLE_USER" />
 		<!-- intercept-url 还可以通过method属性控件http访问方式 (GET, POST, PUT etc.) -->
-		<form-login />
+		<form-login login-page='/login' default-target-url='/home'
+            always-use-default-target='true' />
 		<http-basic />
 		<logout />
 	</http>
