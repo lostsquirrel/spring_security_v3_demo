@@ -5,10 +5,13 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<http auto-config='true'>
+	<http>
 		<intercept-url pattern="/manager/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/**" access="ROLE_USER" />
-		<!-- intercept-url 还可以通过method属性控件http访问方式  (GET, POST, PUT etc.)-->
+		<!-- intercept-url 还可以通过method属性控件http访问方式 (GET, POST, PUT etc.) -->
+		<form-login />
+		<http-basic />
+		<logout />
 	</http>
 	<authentication-manager>
 		<authentication-provider>
