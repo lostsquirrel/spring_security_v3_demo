@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import demo.spring.security.utils.SecurityUtils;
+
 public class XServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -39,6 +41,8 @@ public class XServlet extends HttpServlet {
 			} else {
 				String msg = String.format("你访问的是%s", uri);
 				req.setAttribute("msg", msg);
+				String username = SecurityUtils.getCurrentUsername();
+				req.setAttribute("username", username);
 				log.debug(msg);
 			}
 			req.getRequestDispatcher(next).forward(req, resp);;

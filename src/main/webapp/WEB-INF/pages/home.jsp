@@ -13,7 +13,8 @@
  --%>
 	<h1>
 		Welcome
-		<c:out value="${pageContext.request.remoteUser}" />
+		<c:out value="${pageContext.request.remoteUser}" /> <br /> --
+		<c:out value="${username}" />
 	</h1>
 	<c:if test="${not empty msg }">
 		<c:out value="${msg}"></c:out>
