@@ -13,8 +13,8 @@
 	<authentication-manager>
 		<authentication-provider>
 			<user-service>
-				<user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
-				<user name="bob" password="bobspassword" authorities="ROLE_USER" />
+				<user name="jimi" password="jimis" authorities="ROLE_USER, ROLE_ADMIN" />
+				<user name="bob" password="bobs" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
 		<!-- 可以配置多个authentication-provider 会依次查询 -->
