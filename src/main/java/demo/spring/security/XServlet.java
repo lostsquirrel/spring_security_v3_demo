@@ -34,6 +34,8 @@ public class XServlet extends HttpServlet {
 			String uri = req.getRequestURI();
 			String cp = req.getContextPath();
 			String target = uri.substring(cp.length() + 1);
+			target = target.split(";")[0];
+			target = target.split("\\?")[0];
 			String x = target.split("/")[0];
 			String next = "/WEB-INF/pages/home.jsp";
 			if (pages.contains(x)) {
