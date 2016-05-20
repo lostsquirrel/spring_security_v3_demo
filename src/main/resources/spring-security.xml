@@ -6,60 +6,37 @@
            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<http>
-		<intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+		<intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<!-- <intercept-url pattern="/login.jsp*" filters="none"/> -->
 		<intercept-url pattern="/manager/**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/secure/**" access="ROLE_USER" requires-channel="https"/>
+		<intercept-url pattern="/secure/**" access="ROLE_USER"
+			requires-channel="https" />
 		<intercept-url pattern="/**" access="ROLE_USER" />
 		<!-- intercept-url 还可以通过method属性控件http访问方式 (GET, POST, PUT etc.) -->
 		<form-login login-page='/login' default-target-url='/home'
-            always-use-default-target='true' />
+			always-use-default-target='true' />
 		<http-basic />
-		<logout logout-url="/logout" logout-success-url="/login"/>
+		<logout logout-url="/logout" logout-success-url="/login" />
 		<session-management invalid-session-url="/sessionTimeout.htm" />
-		
+
 	</http>
 	<authentication-manager>
-		<!-- 可以配置多个authentication-provider 会依次查询 -->
-		<authentication-provider>
-			<user-service>
-				<user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
-				<user name="bob" password="bobspassword" authorities="ROLE_USER" />
-			</user-service>
-		</authentication-provider>
-<!-- 
-		<authentication-provider user-service-ref='myUserDetailsService' />
-
-		<authentication-provider>
-			<jdbc-user-service data-source-ref="securityDataSource" />
-		</authentication-provider>
-
-		<authentication-provider ref='myAuthenticationProvider' />
-		 -->
-		<!-- 
-		<authentication-provider>
-			<password-encoder hash="sha">
-				<salt-source user-property="username" />
-			</password-encoder>
-			<user-service>
-				<user name="jimi" password="d7e6351eaa13189a5a3641bab846c8e8c69ba39f"
-					authorities="ROLE_USER, ROLE_ADMIN" />
-				<user name="bob" password="4e7421b1b8765d8f9406d87e7cc6aa784c4ab97f"
-					authorities="ROLE_USER" />
-			</user-service>
-		</authentication-provider>
-		<authentication-provider>
-			<password-encoder ref="PasswordEncoder">
-			</password-encoder>
-			<user-service>
-				<user name="jimi" password="d7e6351eaa13189a5a3641bab846c8e8c69ba39f"
-					authorities="ROLE_USER, ROLE_ADMIN" />
-				<user name="bob" password="4e7421b1b8765d8f9406d87e7cc6aa784c4ab97f"
-					authorities="ROLE_USER" />
-			</user-service>
-		</authentication-provider>
- -->
-
+		<authentication-provider ref="daoAuthenticationProvider" />
 	</authentication-manager>
 
+
+	<beans:bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="inMemoryDaoImpl" />
+		<beans:property name="passwordEncoder" ref="noEncodePasswordEncoder" />
+	</beans:bean>
+
+	<user-service id="inMemoryDaoImpl">
+		<user name="jimi" password="jimis" authorities="ROLE_USER, ROLE_ADMIN" />
+		<user name="bob" password="bobs" authorities="ROLE_USER" />
+	</user-service>
+
+	<beans:bean id="noEncodePasswordEncoder"
+		class="demo.spring.security.NotEncodePasswordEncoder">
+	</beans:bean>
 </beans:beans>
