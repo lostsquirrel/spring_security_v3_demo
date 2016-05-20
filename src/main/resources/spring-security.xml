@@ -27,12 +27,16 @@
 
 	<beans:bean id="daoAuthenticationProvider"
 		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<beans:property name="userDetailsService" ref="inMemoryDaoImpl" />
+		<beans:property name="userDetailsService" ref="jdbcDaoImpl" />
 		<beans:property name="passwordEncoder" ref="noEncodePasswordEncoder" />
 	</beans:bean>
 
-	<user-service id="inMemoryDaoImpl" properties="classpath:users.properties"/>
-	
+
+	<beans:bean id="jdbcDaoImpl"
+		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
 	<beans:bean id="noEncodePasswordEncoder"
 		class="demo.spring.security.NotEncodePasswordEncoder">
 	</beans:bean>
