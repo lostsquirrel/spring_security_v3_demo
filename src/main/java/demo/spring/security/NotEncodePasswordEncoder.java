@@ -1,16 +1,18 @@
 package demo.spring.security;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import demo.spring.security.vo.UserDetailsVO;
-
-public class MyUserDetailsService implements UserDetailsService {
+public class NotEncodePasswordEncoder implements PasswordEncoder {
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return new UserDetailsVO(username);
+	public String encode(CharSequence rawPassword) {
+		return rawPassword.toString();
 	}
+
+	@Override
+	public boolean matches(CharSequence rawPassword, String encodedPassword) {
+		return rawPassword.equals(encodedPassword);
+	}
+
 
 }

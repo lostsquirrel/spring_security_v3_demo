@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import demo.spring.security.utils.SecurityUtils;
-
 public class XServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -34,6 +32,8 @@ public class XServlet extends HttpServlet {
 			String uri = req.getRequestURI();
 			String cp = req.getContextPath();
 			String target = uri.substring(cp.length() + 1);
+			target = target.split(";")[0];
+			target = target.split("\\?")[0];
 			String x = target.split("/")[0];
 			String next = "/WEB-INF/pages/home.jsp";
 			if (pages.contains(x)) {
@@ -41,8 +41,6 @@ public class XServlet extends HttpServlet {
 			} else {
 				String msg = String.format("你访问的是%s", uri);
 				req.setAttribute("msg", msg);
-				String username = SecurityUtils.getCurrentUsername();
-				req.setAttribute("username", username);
 				log.debug(msg);
 			}
 			req.getRequestDispatcher(next).forward(req, resp);;
