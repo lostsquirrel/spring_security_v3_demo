@@ -12,7 +12,7 @@
 		<intercept-url pattern="/**" access="ROLE_USER" />
 		<!-- intercept-url 还可以通过method属性控件http访问方式 (GET, POST, PUT etc.) -->
 		<form-login login-page='/login' default-target-url='/home'
-            always-use-default-target='true' />
+             />
 		<http-basic />
 		<logout logout-url="/logout" logout-success-url="/login"/>
 		
@@ -20,8 +20,8 @@
 	<authentication-manager>
 		<authentication-provider>
 			<user-service>
-				<user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
-				<user name="bob" password="bobspassword" authorities="ROLE_USER" />
+				<user name="jimi" password="jimis" authorities="ROLE_USER, ROLE_ADMIN" />
+				<user name="bob" password="bobs" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
 		<!-- 可以配置多个authentication-provider 会依次查询 -->
