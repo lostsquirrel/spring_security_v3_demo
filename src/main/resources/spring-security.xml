@@ -31,11 +31,8 @@
 		<beans:property name="passwordEncoder" ref="noEncodePasswordEncoder" />
 	</beans:bean>
 
-	<user-service id="inMemoryDaoImpl">
-		<user name="jimi" password="jimis" authorities="ROLE_USER, ROLE_ADMIN" />
-		<user name="bob" password="bobs" authorities="ROLE_USER" />
-	</user-service>
-
+	<user-service id="inMemoryDaoImpl" properties="classpath:users.properties"/>
+	
 	<beans:bean id="noEncodePasswordEncoder"
 		class="demo.spring.security.NotEncodePasswordEncoder">
 	</beans:bean>
