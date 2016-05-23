@@ -5,39 +5,25 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
+	<http pattern="/restful/**" create-session="stateless">
+		<intercept-url pattern='/**' access='ROLE_REMOTE' />
+		<http-basic />
+	</http>
+	
+	<http pattern="/login*" security="none" />
+	
 	<http>
-		<intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<!-- <intercept-url pattern="/login.jsp*" filters="none"/> -->
 		<intercept-url pattern="/manager/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/secure/**" access="ROLE_USER"
 			requires-channel="https" />
 		<intercept-url pattern="/**" access="ROLE_USER" />
 		<!-- intercept-url 还可以通过method属性控件http访问方式 (GET, POST, PUT etc.) -->
-		<form-login login-page='/login' default-target-url='/home'
-			always-use-default-target='true' />
-		<http-basic />
+		<form-login login-page='/login' default-target-url='/home' />
 		<logout logout-url="/logout" logout-success-url="/login" />
-		<session-management invalid-session-url="/sessionTimeout.htm" />
-
 	</http>
-	<authentication-manager>
+
+	<authentication-manager alias="authenticationManager">
 		<authentication-provider ref="daoAuthenticationProvider" />
 	</authentication-manager>
-
-
-	<beans:bean id="daoAuthenticationProvider"
-		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<beans:property name="userDetailsService" ref="jdbcDaoImpl" />
-		<beans:property name="passwordEncoder" ref="noEncodePasswordEncoder" />
-	</beans:bean>
-
-
-	<beans:bean id="jdbcDaoImpl"
-		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-		<beans:property name="dataSource" ref="dataSource" />
-	</beans:bean>
-
-	<beans:bean id="noEncodePasswordEncoder"
-		class="demo.spring.security.NotEncodePasswordEncoder">
-	</beans:bean>
+	
 </beans:beans>
