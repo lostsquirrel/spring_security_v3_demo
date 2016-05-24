@@ -7,33 +7,40 @@
            http://www.springframework.org/schema/security/spring-security-3.2.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-
+<!-- 
 	<bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
 		<constructor-arg>
 			<list>
 				<sec:filter-chain pattern="/restful/basic/**"
 					filters="basicAuthenticationFilter" />
+				<sec:filter-chain pattern="/restful/digest/**"
+					filters="digestFilter" />
 			</list>
 		</constructor-arg>
-	</bean>
-<!-- 
-	<bean id="formLoginFilter"
-		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
-		<property name="authenticationManager" ref="authenticationManager" />
-		<property name="authenticationEntryPoint" ref="formLoginEntryPoint" />
 	</bean>
  -->
 	<bean id="basicAuthenticationFilter"
 		class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
-		<property name="authenticationEntryPoint" ref="authenticationEntryPoint" />
+		<property name="authenticationEntryPoint" ref="basicAuthenticationEntryPoint" />
 	</bean>
-<!-- 
-	<bean id="formLoginEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint"></bean>
-	 -->
-	<bean id="authenticationEntryPoint"
+	<bean id="basicAuthenticationEntryPoint"
 		class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
 		<property name="realmName" value="ooxx" />
+	</bean>
+
+	<bean id="digestFilter"
+		class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+		<property name="userDetailsService" ref="jdbcDaoImpl" />
+		<property name="authenticationEntryPoint" ref="digestEntryPoint" />
+		<!-- <property name="userCache" ref="userCache" /> -->
+	</bean>
+
+	<bean id="digestEntryPoint"
+		class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
+		<property name="realmName" value="Contacts Realm via Digest Authentication" />
+		<property name="key" value="acegi" />
+		<property name="nonceValiditySeconds" value="10" /> <!-- default 300s -->
 	</bean>
 
 	<bean id="daoAuthenticationProvider"

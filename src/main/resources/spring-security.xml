@@ -5,11 +5,15 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<http pattern="/restful/**" create-session="stateless">
+	<http pattern="/restful/basic/**" create-session="stateless">
 		<intercept-url pattern='/**' access='ROLE_REMOTE' />
 		<http-basic />
 	</http>
-	
+	<http pattern="/restful/digest/**" use-expressions="true" entry-point-ref="digestEntryPoint">
+        <intercept-url pattern="/**" access="isAuthenticated()" />
+        <custom-filter ref="digestFilter" after="BASIC_AUTH_FILTER" />
+    </http>
+    
 	<http pattern="/login*" security="none" />
 	
 	<http>
