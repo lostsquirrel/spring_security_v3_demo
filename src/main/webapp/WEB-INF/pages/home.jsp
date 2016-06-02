@@ -21,6 +21,7 @@
 	</c:if>
 	<c:url var="logoutUrl" value="/logout" />
 	<form class="form-inline" action="${logoutUrl}" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<input type="submit" value="Log out" />
 	</form>
 </body>
