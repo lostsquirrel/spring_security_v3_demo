@@ -24,6 +24,7 @@
 		<!-- intercept-url 还可以通过method属性控件http访问方式 (GET, POST, PUT etc.) -->
 		<form-login login-page='/login' default-target-url='/home' />
 		<logout logout-url="/logout" logout-success-url="/login" />
+		<remember-me key="myAppKey"/>
 	</http>
 
 	<authentication-manager alias="authenticationManager">

@@ -11,6 +11,7 @@
 <form action="<c:url value="/j_spring_security_check" />" method="post">
 	<span>用户名：<input type="text" name="j_username" /></span>
 	<span>密码：<input type="password" name="j_password" /></span>
+	<span>记住密码：<input type="checkbox" name="_spring_security_remember_me" /></span>
 	<input type="submit" />
 </form>
 </body>

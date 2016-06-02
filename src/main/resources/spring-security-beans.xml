@@ -7,18 +7,7 @@
            http://www.springframework.org/schema/security/spring-security-3.2.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-<!-- 
-	<bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
-		<constructor-arg>
-			<list>
-				<sec:filter-chain pattern="/restful/basic/**"
-					filters="basicAuthenticationFilter" />
-				<sec:filter-chain pattern="/restful/digest/**"
-					filters="digestFilter" />
-			</list>
-		</constructor-arg>
-	</bean>
- -->
+
 	<bean id="basicAuthenticationFilter"
 		class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
@@ -40,7 +29,7 @@
 		class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
 		<property name="realmName" value="Contacts Realm via Digest Authentication" />
 		<property name="key" value="acegi" />
-		<property name="nonceValiditySeconds" value="10" /> <!-- default 300s -->
+		<property name="nonceValiditySeconds" value="600" /> <!-- default 300s -->
 	</bean>
 
 	<bean id="daoAuthenticationProvider"
